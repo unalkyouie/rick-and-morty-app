@@ -36,8 +36,7 @@
 
 ## Technical Details
 
-- **Data Fetching**: Use your preferred method (e.g., `fetch` or `Axios`).
-- **Global State Management**: Use one of the following for global state: **React Context API** or **Jotai**.
 - **Server State Management**: For server state management, use **React Query**.
+- **Global State Management**: Use one of the following for global state: **React Context API** or **Jotai**.
 
 ---
