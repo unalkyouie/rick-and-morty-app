@@ -5,6 +5,8 @@
 1. Clone the boilerplate repository and add it to your own repository (please do not fork the original repository).
 2. Work on your tasks in a separate branch and, once completed, share your repository with us by opening a **Pull Request** with your changes.
 
+Please note: the Pull Request should be created in your own repository, not in the original boilerplate repository.
+
 ## Task
 
 1. **Character List Screen with Pagination**
