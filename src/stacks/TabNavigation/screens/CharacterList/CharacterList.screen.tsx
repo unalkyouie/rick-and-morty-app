@@ -1,13 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import {View, Text, Button, FlatList, ActivityIndicator} from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {MainStackNavigationProp} from '../../../Main/Main.routes';
-import { APIResponse, Character } from '../../../../services/api/types';
 import { getCharacters } from '../../../../services/api';
 
 import {styles} from './CharacterList.styled';
+import CharacterCard from '../../../../components/CharacterCard';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -53,13 +53,11 @@ const CharacterListScreen = () => {
     <View style={styles.container}>
       <Text>CharactersListScreen</Text>
       <FlatList
+        contentContainerStyle={styles.contentContainer}
         data={characters}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ padding: 8, borderBottomWidth: 1 }}>
-            <Text>{item.name}</Text>
-            <Text>{item.status} - {item.species}</Text>
-          </View>
+          <CharacterCard character={item}/>
         )}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
