@@ -5,7 +5,7 @@ export interface APIResponse<T> {
       next: string | null;
       prev: string | null;
     };
-    results: T[];
+    results: Array<T>;
   }
   
   export interface Character {
