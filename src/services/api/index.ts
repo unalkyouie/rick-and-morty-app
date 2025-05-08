@@ -4,9 +4,9 @@ const BASE_URL = 'https://rickandmortyapi.com/api';
 
 
 export const API = {
-    get: async <T>(endpoint: string): Promise<T> => {
+    get: async <T>(url: string): Promise<T> => {
       try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`);
+        const response = await fetch(`${BASE_URL}/${url}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
@@ -18,6 +18,6 @@ export const API = {
     },
   };
   
-  export const getCharacters = async () => {
-    return API.get<APIResponse<Character>>('character/');
+  export const getCharacters = async (page: number = 1) => {
+    return API.get<APIResponse<Character>>(`character/?page=${page}`);
   }; 

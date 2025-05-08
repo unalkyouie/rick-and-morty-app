@@ -1,28 +1,51 @@
-import {View, Text, Button, FlatList, ActivityIndicator} from 'react-native';
-import React, { useEffect, useState } from 'react';
-import {styles} from './CharacterList.styled';
 import {useNavigation} from '@react-navigation/native';
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import {View, Text, Button, FlatList, ActivityIndicator} from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+
 import {MainStackNavigationProp} from '../../../Main/Main.routes';
-import { Character } from '../../../../services/api/types';
+import { APIResponse, Character } from '../../../../services/api/types';
 import { getCharacters } from '../../../../services/api';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+
+import {styles} from './CharacterList.styled';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
-  const [characters, setCharacters] = useState<Array<Character>>([]);
 
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ['characters'],
-    queryFn: () => getCharacters(),
+    queryFn:  ({ pageParam = 1 }) => getCharacters(pageParam),
+    getNextPageParam: (lastPage) => {
+      const nextPageUrl = lastPage.info.next;
+      if (!nextPageUrl) return undefined;
+
+      const nextPage = parseInt(new URL(nextPageUrl).searchParams.get('page') || '1');
+      return isNaN(nextPage) ? undefined : nextPage;
+    },
+    initialPageParam:1,
+    staleTime: Infinity,
+    placeholderData: keepPreviousData,
+
   });
 
-  useEffect(() => {
-    if (data?.results) {
-      setCharacters(data.results);
+  const loadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
+  };
+
+  const characters = useMemo(() => {
+    return data?.pages.flatMap((page) => page.results) ?? [];
   }, [data]);
 
-  
+
   if (isLoading) return <ActivityIndicator size="large" />;
   if (isError) return <Text>Error</Text>;
 
@@ -38,6 +61,8 @@ const CharacterListScreen = () => {
             <Text>{item.status} - {item.species}</Text>
           </View>
         )}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
       />
       <Button
         title="Navigate to Details screen"
