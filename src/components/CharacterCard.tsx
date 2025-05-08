@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
 
 import { Character } from '../services/api/types';
 import { colorPalette } from '../styles/colorPalette';
 
 interface Props {
   character: Character;
+  onPress: (character: Character)=>void;
 }
 
-const CharacterCard: React.FC<Props> = ({ character }) => {
+const CharacterCard: React.FC<Props> = ({ character, onPress}) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={()=>onPress(character)}>
     <View style={styles.info}>
       <Text style={styles.label}>NAME</Text>
       <Text style={styles.name}>{character.name}</Text>
@@ -23,7 +24,7 @@ const CharacterCard: React.FC<Props> = ({ character }) => {
     </View>
 
     <Image source={{ uri: character.image }} style={styles.image} />
-  </View>
+  </TouchableOpacity>
   );
 };
 
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     elevation: 4,
     flexDirection: 'row',
+    flex:3,
     justifyContent: 'space-between',
     margin: 8,
     padding: 12,
@@ -45,10 +47,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 4, height: 4},
     shadowOpacity: 1,
     shadowRadius: 4,
-    width: '80%'
   },
   info: {
+    flex:1,
     paddingRight: 8,
+    maxWidth: '33%'
   },
   label: {
     fontSize: 12,

@@ -1,14 +1,11 @@
 import {StyleSheet} from 'react-native';
+import { colorPalette } from '../../../../styles/colorPalette';
 
 export const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
+    width: '100%',
+    paddingHorizontal: 8,
+    backgroundColor: colorPalette.lightGreen,
   },
-  contentContainer: {
-    flex:1,
-    marginHorizontal: 16,
-
-  }
 });

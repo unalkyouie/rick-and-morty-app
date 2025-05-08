@@ -8,6 +8,7 @@ import { getCharacters } from '../../../../services/api';
 
 import {styles} from './CharacterList.styled';
 import CharacterCard from '../../../../components/CharacterCard';
+import { Character } from '../../../../services/api/types';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -45,30 +46,26 @@ const CharacterListScreen = () => {
     return data?.pages.flatMap((page) => page.results) ?? [];
   }, [data]);
 
-
+const navigateToCharacterDetails = (character: Character)=>
+  navigate('CharacterDetailsStack', {
+    screen: 'CharacterDetailsScreen',
+    params: { character },
+  });
+  
   if (isLoading) return <ActivityIndicator size="large" />;
   if (isError) return <Text>Error</Text>;
 
   return (
     <View style={styles.container}>
-      <Text>CharactersListScreen</Text>
+      <Text>Character List</Text>
       <FlatList
-        contentContainerStyle={styles.contentContainer}
         data={characters}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <CharacterCard character={item}/>
+          <CharacterCard character={item} onPress={navigateToCharacterDetails}/>
         )}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
-      />
-      <Button
-        title="Navigate to Details screen"
-        onPress={(): void => {
-          navigate('CharacterDetailsStack', {
-            screen: 'CharacterDetailsScreen',
-          });
-        }}
       />
     </View>
   );

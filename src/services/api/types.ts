@@ -14,5 +14,11 @@ export interface APIResponse<T> {
     status: string;
     species: string;
     image: string;
+    origin: {
+      name:string;
+      url: string;
+  };
+  gender: string; 
+
   }
   
