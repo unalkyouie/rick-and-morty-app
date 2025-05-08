@@ -8,6 +8,7 @@ import { getCharacters } from '../../../../services/api';
 
 import {styles} from './CharacterList.styled';
 import CharacterCard from '../../../../components/CharacterCard';
+import { Character } from '../../../../services/api/types';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
@@ -45,10 +46,10 @@ const CharacterListScreen = () => {
     return data?.pages.flatMap((page) => page.results) ?? [];
   }, [data]);
 
-const navigateToCharacterDetails = (id: number)=>
+const navigateToCharacterDetails = (character: Character)=>
   navigate('CharacterDetailsStack', {
     screen: 'CharacterDetailsScreen',
-    params: { id },
+    params: { character },
   });
   
   if (isLoading) return <ActivityIndicator size="large" />;

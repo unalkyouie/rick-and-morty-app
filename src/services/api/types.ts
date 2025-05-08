@@ -14,26 +14,11 @@ export interface APIResponse<T> {
     status: string;
     species: string;
     image: string;
-  }
-  
-  export interface CharacterDetails {
-    id: number;
-    name: string;
-    status: string;
-    species: string;
-    image: string;
-    type: string;
-    gender: string; 
     origin: {
-        name:string;
-        url: string;
-    };
-    localtion: {
-        name:string;
-        url: string;
-    };
-    episode: Array<string>;
-    url: string;
-    created: string;
+      name:string;
+      url: string;
+  };
+  gender: string; 
+
   }
   

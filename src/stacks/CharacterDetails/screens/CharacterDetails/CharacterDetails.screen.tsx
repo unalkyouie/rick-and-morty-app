@@ -1,10 +1,8 @@
-import {ActivityIndicator,Image, Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import React from 'react';
 import {styles} from './CharacterDetails.styled';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { useQuery } from '@tanstack/react-query';
 import { CharacterDetailsStackParamList } from '../../CharacterDetails.routes';
-import { getCharacterById } from '../../../../services/api';
 
 type CharacterDetailsScreenRouteProp = RouteProp<CharacterDetailsStackParamList, 'CharacterDetailsScreen'>;
 
@@ -12,14 +10,8 @@ type CharacterDetailsScreenRouteProp = RouteProp<CharacterDetailsStackParamList,
 const CharacterDetailsScreen = () => {
   const { params } = useRoute<CharacterDetailsScreenRouteProp>();
 
+  const {character} = params;
 
-  const { data: character, isLoading, isError } = useQuery({    
-  queryKey: ['character', params.id],
-  queryFn: () =>
-    getCharacterById(params.id)}
-  );
-
-  if (isError) return <Text>Error loading character details</Text>;
 
   return (
     <View style={styles.container}>

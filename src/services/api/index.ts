@@ -1,4 +1,4 @@
-import { APIResponse, Character, CharacterDetails } from "./types";
+import { APIResponse, Character } from "./types";
 
 const BASE_URL = 'https://rickandmortyapi.com/api';
 
@@ -21,8 +21,3 @@ export const API = {
   export const getCharacters = async (page: number = 1) => {
     return API.get<APIResponse<Character>>(`character/?page=${page}`);
   }; 
-
-
-  export const getCharacterById = async (id: number) => {
-    return API.get<CharacterDetails>(`character/${id}`);
-  };

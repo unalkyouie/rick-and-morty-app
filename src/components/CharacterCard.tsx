@@ -6,12 +6,12 @@ import { colorPalette } from '../styles/colorPalette';
 
 interface Props {
   character: Character;
-  onPress: (id: number)=>void;
+  onPress: (character: Character)=>void;
 }
 
 const CharacterCard: React.FC<Props> = ({ character, onPress}) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={()=>onPress(character.id)}>
+    <TouchableOpacity style={styles.card} onPress={()=>onPress(character)}>
     <View style={styles.info}>
       <Text style={styles.label}>NAME</Text>
       <Text style={styles.name}>{character.name}</Text>
