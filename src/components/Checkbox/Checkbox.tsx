@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   TouchableOpacity,
-  View,
   Text,
-  StyleSheet,
   StyleProp,
   ViewStyle,
   TextStyle,
@@ -12,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colorPalette } from '../../styles/colorPalette';
 import { styles } from './Checkbox.styled';
 
-type Props = {
+interface Props  {
   label: string;
   checked: boolean;
   onPress: () => void;
