@@ -1,14 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator,  Text, View } from 'react-native';
 
-import CharacterCard from '../../../../components/CharacterCard/CharacterCard';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
-import useSearchCharacters from '../../../../hooks/useSearchCharacters';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
+import CharacterList from '../../../../components/CharactersList/CharactersList';
 
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
@@ -36,18 +35,9 @@ const CharacterListScreen = () => {
         onClear={() => setSearchQuery('')}
       />
 
-      { isLoading ? <ActivityIndicator size="large" /> :<FlatList
-        data={characters}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <CharacterCard
-            character={item}
-            onPress={navigateToCharacterDetails}
-          />
-        )}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.5}
-      />}
+      { isLoading ? <ActivityIndicator size="large" /> :<CharacterList
+        onPress={navigateToCharacterDetails} characters={characters} loadMore={loadMore} />
+       }
     </View>
   );
 };
