@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colorPalette } from '../../styles/colorPalette';
@@ -10,7 +10,7 @@ type Props = {
   label: string;
   onPress: () => void;
   icon?: { name: string; color?: string };
-  style: ViewStyle;
+  style: StyleProp<ViewStyle>;
 };
 
 const Button: React.FC<Props> = ({ label, onPress, icon, variant, style }) => {

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CharacterList from '../../../../components/CharactersList/CharactersList';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
@@ -30,24 +31,26 @@ const CharacterListScreen = () => {
   if (isError) return <Text>Error</Text>;
 
   return (
-    <View style={styles.container}>
-      <Text>Character List</Text>
-      <SearchBar
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        onClear={() => setSearchQuery('')}
-      />
-
-      {isLoading ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <CharacterList
-          onPress={navigateToCharacterDetails}
-          characters={characters}
-          loadMore={loadMore}
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text>Character List</Text>
+        <SearchBar
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onClear={() => setSearchQuery('')}
         />
-      )}
-    </View>
+
+        {isLoading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <CharacterList
+            onPress={navigateToCharacterDetails}
+            characters={characters}
+            loadMore={loadMore}
+          />
+        )}
+      </View>
+    </SafeAreaView>
   );
 };
 

@@ -11,8 +11,8 @@ const Tab = createBottomTabNavigator();
 
 const getTabIcon = (routeName: string, focused: boolean) => {
   const iconMap: Record<string, { active: string; inactive: string }> = {
-    'Characters': { active: 'people', inactive: 'people-outline' },
-    'Favorites': { active: 'star', inactive: 'star-outline' },
+    Characters: { active: 'people', inactive: 'people-outline' },
+    Favorites: { active: 'star', inactive: 'star-outline' },
   };
 
   const iconName = focused
