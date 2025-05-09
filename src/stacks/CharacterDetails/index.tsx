@@ -1,7 +1,8 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {CharacterDetailsStackRoutes} from './CharacterDetails.routes';
-import {CharacterDetailsScreen} from './screens';
+
+import { CharacterDetailsStackRoutes } from './CharacterDetails.routes';
+import { CharacterDetailsScreen } from './screens';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,6 +1,7 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {styles} from './FavoriteCharacters.styled';
+import { Text, View } from 'react-native';
+
+import { styles } from './FavoriteCharacters.styled';
 
 const FavoriteCharactersScreen = () => {
   return (

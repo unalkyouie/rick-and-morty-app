@@ -1,1 +1,1 @@
-export {default as FavoriteCharactersScreen} from './FavoriteCharacters.screen';
+export { default as FavoriteCharactersScreen } from './FavoriteCharacters.screen';
