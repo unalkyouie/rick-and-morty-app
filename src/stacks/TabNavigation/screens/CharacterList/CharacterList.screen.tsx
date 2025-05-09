@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ActivityIndicator,  Text, View } from 'react-native';
 
+import CharacterList from '../../../../components/CharactersList/CharactersList';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
-import CharacterList from '../../../../components/CharactersList/CharactersList';
 
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
@@ -27,7 +27,6 @@ const CharacterListScreen = () => {
   return (
     <View style={styles.container}>
       <Text>Character List</Text>
-
       <SearchBar
         placeholder="Enter character name"
         value={searchQuery}
