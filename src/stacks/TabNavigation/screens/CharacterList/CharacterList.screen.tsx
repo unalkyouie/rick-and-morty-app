@@ -33,7 +33,6 @@ const CharacterListScreen = () => {
     <View style={styles.container}>
       <Text>Character List</Text>
       <SearchBar
-        placeholder="Enter character name"
         value={searchQuery}
         onChangeText={setSearchQuery}
         onClear={() => setSearchQuery('')}

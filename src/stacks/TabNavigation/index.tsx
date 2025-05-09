@@ -38,14 +38,14 @@ export const TabNavigationStack = () => {
         name="Characters"
         component={CharacterListScreen}
         options={{
-          tabBarLabel: 'All Characters',
+          tabBarLabel: 'ALL CHARACTERS',
         }}
       />
       <Tab.Screen
         name="Favorites"
         component={FavoriteCharactersScreen}
         options={{
-          tabBarLabel: 'Liked characters',
+          tabBarLabel: 'LIKED CHARACTERS',
         }}
       />
     </Tab.Navigator>
