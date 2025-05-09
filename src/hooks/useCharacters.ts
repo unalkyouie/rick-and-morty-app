@@ -12,6 +12,7 @@ const useCharacters = () => {
     isErrorSearchResults,
     isLoadingSearchResults,
   } = useSearchCharacters();
+  
   const {
     data,
     isLoading,

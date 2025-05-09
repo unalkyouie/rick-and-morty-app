@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import CharacterList from '../../../../components/CharactersList/CharactersList';
@@ -7,10 +7,23 @@ import useFavorites from '../../../../hooks/useFavorites';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './FavoriteCharacters.styled';
+import useDebounce from '../../../../hooks/useDebounce';
+import SearchBar from '../../../../components/SearchBar/SearchBar';
 
 const FavoriteCharactersScreen = () => {
   const { favorites } = useFavorites();
   const { navigate } = useNavigation<MainStackNavigationProp>();
+
+
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const debouncedQuery = useDebounce(searchQuery,300);  
+  
+  const filteredFavorites = useMemo(() => {
+    if (!debouncedQuery) return favorites;
+    return favorites.filter((character: Character) =>
+      character.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [favorites, searchQuery]);
 
   const navigateToCharacterDetails = (character: Character) =>
     navigate('CharacterDetailsStack', {
@@ -29,9 +42,14 @@ const FavoriteCharactersScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Favorites</Text>
+      <SearchBar
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        onClear={() => setSearchQuery('')}
+      />
       <CharacterList
         onPress={navigateToCharacterDetails}
-        characters={favorites}
+        characters={filteredFavorites}
       />
     </View>
   );
