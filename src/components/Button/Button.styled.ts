@@ -1,12 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { colorPalette } from '../../styles/colorPalette';
-
 export const styles = StyleSheet.create({
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     borderRadius: 24,
+    borderWidth: 1,
     margin: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -17,12 +16,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: colorPalette.white,
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
+    fontSize: 12,
   },
   icon: {
-    color: colorPalette.white,
+    marginRight: 4,
   },
 });

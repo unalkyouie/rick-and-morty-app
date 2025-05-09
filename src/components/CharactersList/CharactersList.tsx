@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import {  FlatList, StyleSheet, View } from 'react-native';
 
 import { Character } from '../../services/api/types';
 import CharacterCard from '../CharacterCard/CharacterCard';
@@ -14,6 +14,7 @@ const CharacterList: React.FC<Props> = ({ characters, onPress, loadMore }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={characters}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (

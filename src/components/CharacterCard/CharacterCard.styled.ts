@@ -18,19 +18,19 @@ export const styles = StyleSheet.create({
     shadowColor: colorPalette.darkGreen,
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 1,
-    shadowRadius: 4,
+    shadowRadius: 0,
   },
   info: {
     flex: 1,
     paddingRight: 8,
-    maxWidth: '33%',
+    maxWidth: '40%',
   },
   label: {
     fontSize: 12,
     color: colorPalette.mediumGreen,
   },
   name: {
-    fontSize: 20,
+    fontSize: 16,
     color: colorPalette.darkGreen,
     marginBottom: 8,
   },
@@ -40,16 +40,16 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   image: {
+    borderWidth: 1,
     borderRadius: 16,
-    height: 100,
+    height: 150,
     marginLeft: 12,
-    width: 100,
+    width: 150,
   },
-  favorite: {
-    fontSize: 24,
-    marginLeft: 8,
-  },
-  favorited: {
-    color: '#FFD700',
+  likeButton: {
+    backgroundColor: colorPalette.lightGreen,
+    position: 'absolute',
+    right: 16,
+    bottom: 16,
   },
 });

@@ -18,7 +18,7 @@ const getTabIcon = (routeName: string, focused: boolean) => {
   const iconName = focused
     ? iconMap[routeName]?.active
     : iconMap[routeName]?.inactive;
-  return <Ionicons name={iconName} size={20} color={colorPalette.lightGreen} />;
+  return <Ionicons name={iconName} size={20} color={colorPalette.white} />;
 };
 
 export const TabNavigationStack = () => {
