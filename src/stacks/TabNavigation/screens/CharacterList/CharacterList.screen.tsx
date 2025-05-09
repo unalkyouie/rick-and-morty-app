@@ -7,11 +7,14 @@ import CharacterCard from '../../../../components/CharacterCard/CharacterCard';
 import { Character } from '../../../../services/api/types';
 import useCharacters from '../../../../hooks/useCharacters';
 import {styles} from './CharacterList.styled';
+import SearchBar from '../../../../components/SearchBar/SearchBar';
+import useSearchCharacters from '../../../../hooks/useSearchCharacters';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
 
   const {isLoading, isError, characters, loadMore} = useCharacters();
+  const {searchQuery, setSearchQuery} = useSearchCharacters();
 
 const navigateToCharacterDetails = (character: Character)=>
   navigate('CharacterDetailsStack', {
@@ -25,6 +28,14 @@ const navigateToCharacterDetails = (character: Character)=>
   return (
     <View style={styles.container}>
       <Text>Character List</Text>
+
+      <SearchBar
+        placeholder="Enter character name"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        onClear={() => setSearchQuery('')}
+      />
+
       <FlatList
         data={characters}
         keyExtractor={(item) => item.id.toString()}
