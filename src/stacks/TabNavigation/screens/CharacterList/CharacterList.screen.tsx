@@ -13,14 +13,7 @@ import { styles } from './CharacterList.styled';
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
 
-  const { isLoading, isError, characters, loadMore } = useCharacters();
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchResults,
-    isLoadingSearchResults,
-    isErrorSearchResults,
-  } = useSearchCharacters();
+  const { isLoading, isError, characters, loadMore, searchQuery, setSearchQuery } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>
     navigate('CharacterDetailsStack', {
@@ -29,9 +22,8 @@ const CharacterListScreen = () => {
     });
 
 
-  if (isError || isErrorSearchResults) return <Text>Error</Text>;
+  if (isError) return <Text>Error</Text>;
 
-  const listData = searchQuery ? (searchResults?.results ?? []) : characters;
 
   return (
     <View style={styles.container}>
@@ -44,8 +36,8 @@ const CharacterListScreen = () => {
         onClear={() => setSearchQuery('')}
       />
 
-      { (isLoading || isLoadingSearchResults) ? <ActivityIndicator size="large" /> :<FlatList
-        data={listData}
+      { isLoading ? <ActivityIndicator size="large" /> :<FlatList
+        data={characters}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <CharacterCard

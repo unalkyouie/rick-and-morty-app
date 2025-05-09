@@ -2,8 +2,11 @@ import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { getCharacters } from '../services/api';
+import useSearchCharacters from './useSearchCharacters';
 
 const useCharacters = () => {
+
+  const {searchQuery, searchResults, setSearchQuery, isErrorSearchResults, isLoadingSearchResults} = useSearchCharacters();
   const {
     data,
     isLoading,
@@ -35,14 +38,18 @@ const useCharacters = () => {
   };
 
   const characters = useMemo(() => {
+    if (searchQuery) {
+      return searchResults?.results ?? [];
+    }
     return data?.pages.flatMap((page) => page.results) ?? [];
-  }, [data]);
-
+  }, [data, searchResults, searchQuery]);
   return {
     characters,
     loadMore,
-    isLoading,
-    isError,
+    isLoading: isLoading||isLoadingSearchResults,
+    isError: isError || isErrorSearchResults,
+    searchQuery,
+    setSearchQuery
   };
 };
 
