@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ViewStyle } from 'react-native';
-import Button from '../Button/Button';
-import { StatusOption, SpeciesOption, GenderOption } from '../../hooks/useFilters';
+import { View, ViewStyle } from 'react-native';
+
+
 import { colorPalette } from '../../styles/colorPalette';
+import Button from '../Button/Button';
 import { styles } from './Filters.styled';
 import FiltersCard from './FiltersCard';
+import { GenderOption, SpeciesOption, StatusOption } from '../../services/api/types';
 
-
-
-interface Props{
+interface Props {
   selectedStatus: StatusOption[];
   selectedSpecies: SpeciesOption[];
   selectedGender: GenderOption[];
@@ -18,7 +18,7 @@ interface Props{
   onReset: () => void;
   onApply: () => void;
   style?: ViewStyle;
-};
+}
 
 const Filters: React.FC<Props> = ({
   selectedStatus,
@@ -33,18 +33,22 @@ const Filters: React.FC<Props> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   return (
-      <View style={[styles.wrapper, style]} >
+    <View style={[styles.wrapper, style]}>
       <Button
         variant="primary"
-        label='Filters'
+        label="Filters"
         icon={{
           name: visible ? 'chevron-up' : 'chevron-down',
           color: colorPalette.white,
         }}
-        onPress={() => setVisible(v => !v)}
+        onPress={() => setVisible((v) => !v)}
         style={[
           styles.toggleButton,
-          { backgroundColor: visible ? colorPalette.darkGreen : colorPalette.primaryGreen },
+          {
+            backgroundColor: visible
+              ? colorPalette.darkGreen
+              : colorPalette.primaryGreen,
+          },
         ]}
       />
       {visible && (
@@ -62,7 +66,5 @@ const Filters: React.FC<Props> = ({
     </View>
   );
 };
-
-
 
 export default Filters;

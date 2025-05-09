@@ -40,8 +40,8 @@ const CharacterListScreen = () => {
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
         />
-       
-       <Filters {...filtersProps} />
+
+        <Filters {...filtersProps} />
         {isLoading ? (
           <ActivityIndicator size="large" />
         ) : (
