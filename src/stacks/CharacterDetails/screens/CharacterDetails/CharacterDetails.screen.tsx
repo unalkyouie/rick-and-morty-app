@@ -1,17 +1,19 @@
-import {Image, Text, View} from 'react-native';
-import React from 'react';
-import {styles} from './CharacterDetails.styled';
 import { RouteProp, useRoute } from '@react-navigation/native';
+import React from 'react';
+import { Image, Text, View } from 'react-native';
+
 import { CharacterDetailsStackParamList } from '../../CharacterDetails.routes';
+import { styles } from './CharacterDetails.styled';
 
-type CharacterDetailsScreenRouteProp = RouteProp<CharacterDetailsStackParamList, 'CharacterDetailsScreen'>;
-
+type CharacterDetailsScreenRouteProp = RouteProp<
+  CharacterDetailsStackParamList,
+  'CharacterDetailsScreen'
+>;
 
 const CharacterDetailsScreen = () => {
   const { params } = useRoute<CharacterDetailsScreenRouteProp>();
 
-  const {character} = params;
-
+  const { character } = params;
 
   return (
     <View style={styles.container}>
@@ -42,7 +44,6 @@ const CharacterDetailsScreen = () => {
             <Text style={styles.detailText}>{character?.gender}</Text>
           </View>
         </View>
-
       </View>
     </View>
   );
