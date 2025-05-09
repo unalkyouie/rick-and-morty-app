@@ -4,6 +4,7 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import CharacterList from '../../../../components/CharactersList/CharactersList';
+import Filters from '../../../../components/Filters/Filters';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
 import { Character } from '../../../../services/api/types';
@@ -20,6 +21,7 @@ const CharacterListScreen = () => {
     loadMore,
     searchQuery,
     setSearchQuery,
+    filtersProps,
   } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>
@@ -33,12 +35,15 @@ const CharacterListScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
+        <Text style={styles.title}>Characters</Text>
+
         <SearchBar
           value={searchQuery}
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
         />
 
+        <Filters {...filtersProps} />
         {isLoading ? (
           <ActivityIndicator size="large" />
         ) : (

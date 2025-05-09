@@ -4,6 +4,12 @@ import { useState } from 'react';
 import { searchCharactersByName } from '../services/api';
 import useDebounce from './useDebounce';
 
+export type Filters = {
+  name: string;
+  status: string;
+  species: string;
+};
+
 const useSearchCharacters = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const debouncedQuery = useDebounce(searchQuery);

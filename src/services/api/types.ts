@@ -1,3 +1,7 @@
+export type StatusOption = 'Alive' | 'Dead' | 'Unknown';
+export type SpeciesOption = 'Human' | 'Alien' | 'Humanoid' | 'Mythological';
+export type GenderOption = 'Male' | 'Female' | 'Genderless' | 'unknown';
+
 export interface APIResponse<T> {
   info: {
     count: number;
@@ -11,12 +15,12 @@ export interface APIResponse<T> {
 export interface Character {
   id: number;
   name: string;
-  status: string;
-  species: string;
+  status: StatusOption;
+  species: SpeciesOption;
   image: string;
   origin: {
     name: string;
     url: string;
   };
-  gender: string;
+  gender: GenderOption;
 }

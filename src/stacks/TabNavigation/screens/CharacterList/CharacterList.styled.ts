@@ -13,4 +13,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     width: '100%',
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
 });

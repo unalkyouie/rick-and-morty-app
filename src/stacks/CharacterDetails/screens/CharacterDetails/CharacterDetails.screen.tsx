@@ -27,18 +27,15 @@ const CharacterDetailsScreen = () => {
     toggleFavorite(character);
   };
 
+  const buttonLabel = favorite ? 'REMOVE FROM LIKED' : 'ADD TO LIKED';
+  const buttonIcon = {
+    name: favorite ? 'star' : 'star-outline',
+    color: favorite ? colorPalette.accent : undefined,
+  };
+  const backgroundColor = favorite
+    ? colorPalette.darkGreen
+    : colorPalette.primaryGreen;
 
-const buttonLabel = favorite ? 'REMOVE FROM LIKED' : 'ADD TO LIKED';
-const buttonIcon = {
-  name: favorite ? 'star' : 'star-outline',
-  color: favorite ? colorPalette.accent : undefined,
-};
-const backgroundColor = favorite
-? colorPalette.darkGreen
-: colorPalette.primaryGreen;
-
-
-console.log(buttonLabel);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -47,7 +44,7 @@ console.log(buttonLabel);
         </TouchableOpacity>
 
         <View style={styles.infoContainer}>
-        <Image source={{ uri: character?.image }} style={styles.image} />
+          <Image source={{ uri: character?.image }} style={styles.image} />
 
           <Text style={styles.label}>NAME</Text>
           <Text style={styles.name}>{character?.name}</Text>
@@ -82,11 +79,10 @@ console.log(buttonLabel);
             style={[
               styles.favoriteButton,
               {
-                backgroundColor
+                backgroundColor,
               },
             ]}
           />
-
         </View>
       </View>
     </SafeAreaView>
