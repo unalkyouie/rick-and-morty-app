@@ -1,26 +1,35 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
-import { Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View, SafeAreaView } from 'react-native';
 
-import CharacterList from '../../../../components/CharactersList/CharactersList';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
+import Filters from '../../../../components/Filters/Filters';
+import CharacterList from '../../../../components/CharactersList/CharactersList';
+
 import useDebounce from '../../../../hooks/useDebounce';
-import useFavorites from '../../../../hooks/useFavorites';
+import useFavoriteFilter from '../../../../hooks/useFavoriteFilter';
+
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './FavoriteCharacters.styled';
-import useFilters from '../../../../hooks/useFilters';
-import Filters from '../../../../components/Filters/Filters';
 
 const FavoriteCharactersScreen = () => {
-  const { favorites } = useFavorites();
   const { navigate } = useNavigation<MainStackNavigationProp>();
+  const {
+    filteredFavorites,
+    filterProps,
+  } = useFavoriteFilter();
 
-  
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
   const debouncedQuery = useDebounce(searchQuery, 300);
 
+  const list = useMemo<Character[]>(() => {
+    if (!debouncedQuery) return filteredFavorites;
+    const searchedItems = debouncedQuery.toLowerCase();
+    return filteredFavorites.filter((item) =>
+      item.name.toLowerCase().includes(searchedItems)
+    );
+  }, [filteredFavorites, debouncedQuery]);
 
   const navigateToCharacterDetails = (character: Character) =>
     navigate('CharacterDetailsStack', {
@@ -28,72 +37,31 @@ const FavoriteCharactersScreen = () => {
       params: { character },
     });
 
-  if (favorites.length === 0) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.emptyText}>No favorites yet!</Text>
-      </View>
-    );
-  }
-
-  const filtersProps = useFilters();
-  const [applied, setApplied] = useState(false)
-
-  const onFiltersApply = () => setApplied(true)
-  const onFiltersReset = () => {
-    setApplied(false);
-    filtersProps.onReset();
-  };
-
-  const finalList = useMemo(() => {
-    let list = favorites;
-  
-    if (debouncedQuery) {
-      const q = debouncedQuery.toLowerCase();
-      list = list.filter(item => item.name.toLowerCase().includes(q));
-    }
-  
-    if (applied) {
-      const { selectedStatus, selectedSpecies, selectedGender } = filtersProps;
-      list = list.filter(item => {
-        if (selectedStatus.length && !selectedStatus.includes(item.status)) return false;
-        if (selectedSpecies.length && !selectedSpecies.includes(item.species)) return false;
-        if (selectedGender.length && !selectedGender.includes(item.gender)) return false;
-        return true;
-      });
-    }
-  
-    return list;
-  }, [
-    favorites,
-    debouncedQuery,
-    applied,
-    filtersProps.selectedStatus,
-    filtersProps.selectedSpecies,
-    filtersProps.selectedGender,
-  ]);
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
+        <Text style={styles.title}>Liked Characters</Text>
 
-        <Text style={styles.title}>Liked characters</Text>
         <SearchBar
           value={searchQuery}
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
         />
 
-        <Filters {...filtersProps} onApply={onFiltersApply} onReset={onFiltersReset}/>
+        <Filters {...filterProps} />
 
-        {finalList.length === 0 ? (
-        <Text style={styles.emptyText}>No favorites match your criteria.</Text>
-      ) : (
-        <CharacterList
-          onPress={navigateToCharacterDetails}
-          characters={finalList}
-        />
-      )}
+        {list.length === 0 ? (
+          <Text style={styles.emptyText}>
+            {searchQuery || filterProps.selectedStatus.length || filterProps.selectedSpecies.length || filterProps.selectedGender.length
+              ? 'No favorites match your criteria.'
+              : 'No favorites yet!'}
+          </Text>
+        ) : (
+          <CharacterList
+            onPress={navigateToCharacterDetails}
+            characters={list}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
