@@ -6,10 +6,10 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colorPalette.lightGreen,
+    backgroundColor: colorPalette.white,
     borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     marginVertical: 8,
     borderWidth: 1,
     borderColor: colorPalette.primaryGreen,
@@ -19,13 +19,22 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: colorPalette.darkGreen,
     paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 8,
+    color: colorPalette.darkGreen,
   },
   clearButton: {
-    paddingHorizontal: 8,
     justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
   },
-  clearText: {
-    fontSize: 16,
+  clearButtonPressed: {
+    backgroundColor: colorPalette.lightGreen,
+  },
+  clearIcon: {
+    fontSize: 18,
     color: colorPalette.primaryGreen,
   },
 });

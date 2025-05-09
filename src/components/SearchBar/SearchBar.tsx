@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Pressable, TextInput, TouchableOpacity, View } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colorPalette } from '../../styles/colorPalette';
 import { styles } from './SearchBar.styled';
@@ -11,7 +12,6 @@ interface Props {
   onClear: () => void;
 }
 
-//TOD0: Add search icon
 const SearchBar: React.FC<Props> = ({
   placeholder,
   value,
@@ -20,17 +20,24 @@ const SearchBar: React.FC<Props> = ({
 }) => {
   return (
     <View style={styles.container}>
+      <Ionicons name="search-outline" size={20} style={styles.icon} />
       <TextInput
         style={styles.input}
-        placeholder={placeholder || 'Search...'}
+        placeholder={placeholder || 'Search the characters'}
         placeholderTextColor={colorPalette.darkGreen}
         value={value}
         onChangeText={onChangeText}
       />
       {value.length > 0 && (
-        <TouchableOpacity onPress={onClear} style={styles.clearButton}>
-          <Text style={styles.clearText}>X</Text>
-        </TouchableOpacity>
+        <Pressable
+          onPress={onClear}
+          style={({ pressed }) => [
+            styles.clearButton,
+            pressed && styles.clearButtonPressed,
+          ]}
+        >
+          <Ionicons name="close-outline" size={20} style={styles.clearIcon} />
+        </Pressable>
       )}
     </View>
   );

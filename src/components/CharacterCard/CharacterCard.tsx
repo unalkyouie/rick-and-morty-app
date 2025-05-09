@@ -1,7 +1,10 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
+import useFavorites from '../../hooks/useFavorites';
 import { Character } from '../../services/api/types';
+import { colorPalette } from '../../styles/colorPalette';
+import Button from '../Button/Button';
 import { styles } from './CharacterCard.styled';
 
 interface Props {
@@ -10,6 +13,13 @@ interface Props {
 }
 
 const CharacterCard: React.FC<Props> = ({ character, onPress }) => {
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const favorite = isFavorite(character);
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(character);
+  };
+
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress(character)}>
       <View style={styles.info}>
@@ -24,6 +34,17 @@ const CharacterCard: React.FC<Props> = ({ character, onPress }) => {
       </View>
 
       <Image source={{ uri: character.image }} style={styles.image} />
+
+      <Button
+        variant="secondary"
+        label="LIKE"
+        onPress={handleToggleFavorite}
+        style={styles.likeButton}
+        icon={{
+          name: favorite ? 'star' : 'star-outline',
+          color: favorite ? colorPalette.accent : undefined,
+        }}
+      />
     </TouchableOpacity>
   );
 };

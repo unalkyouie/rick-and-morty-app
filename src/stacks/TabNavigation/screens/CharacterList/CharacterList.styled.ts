@@ -3,6 +3,10 @@ import { StyleSheet } from 'react-native';
 import { colorPalette } from '../../../../styles/colorPalette';
 
 export const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colorPalette.lightGreen,
+  },
   container: {
     backgroundColor: colorPalette.lightGreen,
     flex: 1,

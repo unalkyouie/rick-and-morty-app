@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import CharacterCard from '../../../../components/CharacterCard/CharacterCard';
+import CharacterList from '../../../../components/CharactersList/CharactersList';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
-import useSearchCharacters from '../../../../hooks/useSearchCharacters';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
@@ -13,7 +13,14 @@ import { styles } from './CharacterList.styled';
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
 
-  const { isLoading, isError, characters, loadMore, searchQuery, setSearchQuery } = useCharacters();
+  const {
+    isLoading,
+    isError,
+    characters,
+    loadMore,
+    searchQuery,
+    setSearchQuery,
+  } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>
     navigate('CharacterDetailsStack', {
@@ -21,34 +28,28 @@ const CharacterListScreen = () => {
       params: { character },
     });
 
-
   if (isError) return <Text>Error</Text>;
 
-
   return (
-    <View style={styles.container}>
-      <Text>Character List</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <SearchBar
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onClear={() => setSearchQuery('')}
+        />
 
-      <SearchBar
-        placeholder="Enter character name"
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        onClear={() => setSearchQuery('')}
-      />
-
-      { isLoading ? <ActivityIndicator size="large" /> :<FlatList
-        data={characters}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <CharacterCard
-            character={item}
+        {isLoading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <CharacterList
             onPress={navigateToCharacterDetails}
+            characters={characters}
+            loadMore={loadMore}
           />
         )}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.5}
-      />}
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

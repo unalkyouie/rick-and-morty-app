@@ -4,4 +4,5 @@ export const colorPalette = {
   mediumGreen: '#59695C',
   darkGreen: '#162C1B',
   white: '#fff',
+  accent: '#F89F34',
 };
