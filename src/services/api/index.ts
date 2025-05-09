@@ -6,6 +6,7 @@ export const API = {
   get: async <T>(url: string): Promise<T> => {
     try {
       const response = await fetch(`${BASE_URL}/${url}`);
+      console.log(await response.json());
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
@@ -26,16 +27,16 @@ export const searchCharactersByName = async (name: string) => {
 };
 
 export const searchCharacters = async (filters: {
-  name?: string;
-  status?: string;
-  species?: string;
+  status?: string[];     
+  species?: string[];  
+  gender?: string[];    
 }) => {
   const params = new URLSearchParams();
-  if (filters.name) params.append('name', filters.name);
-  if (filters.status) params.append('status', filters.status);
-  if (filters.species) params.append('species', filters.species);
+  if (filters.status) filters.status.forEach(item => params.append('status', item));
+  if (filters.species)filters.species.forEach(item => params.append('species', item));
+  if (filters.gender) filters.gender.forEach(item => params.append('gender', item));
 
-  const queryString = params.toString();
-  const url = queryString ? `character/?${queryString}` : `character/`;
+  const query = params.toString();
+  const url = query ? `character/?${query}` : 'character';
   return API.get<APIResponse<Character>>(url);
 };

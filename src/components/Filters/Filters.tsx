@@ -9,6 +9,7 @@ import {
 import Button from '../Button/Button';
 import Checkbox from '../Checkbox/Checkbox';
 import { styles } from './Filters.styled';
+import { colorPalette } from '../../styles/colorPalette';
 
 interface Props {
   selectedStatus: StatusOption[];
@@ -88,17 +89,17 @@ export const Filters: React.FC<Props> = ({
       </View>
       <View style={styles.buttonsRow}>
         <Button
-          variant="primary"
+          variant="secondary"
           label="RESET"
           onPress={onReset}
-          style={undefined}
+          style={styles.resetButton}
         />
-        ą{' '}
+       
         <Button
           variant="primary"
           label="APPLY"
           onPress={onApply}
-          style={undefined}
+          style={styles.applyButton}
         />
       </View>
     </View>

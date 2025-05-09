@@ -1,37 +1,34 @@
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
+import { searchCharacters } from '../services/api';
 
 export type StatusOption = 'Alive' | 'Dead' | 'Unknown';
 export type SpeciesOption = 'Human' | 'Alien' | 'Humanoid' | 'Mythological';
 export type GenderOption = 'Male' | 'Female' | 'Genderless' | 'unknown';
 
-export default function useFilters() {
+const  useFilters=()=> {
   const [selectedStatus, setSelectedStatus] = useState<StatusOption[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState<SpeciesOption[]>([]);
   const [selectedGender, setSelectedGender] = useState<GenderOption[]>([]);
+  const [applyFilters, setApplyFilters] = useState<boolean>(false);
 
-  const onToggleStatus = useCallback((option: StatusOption) => {
-    setSelectedStatus((prev) =>
-      prev.includes(option)
-        ? prev.filter((s) => s !== option)
-        : [...prev, option],
-    );
-  }, []);
+  const onToggleStatus = useCallback((opt: StatusOption) =>
+    setSelectedStatus(prev =>
+      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
+    )
+  , []);
 
-  const onToggleSpecies = useCallback((option: SpeciesOption) => {
-    setSelectedSpecies((prev) =>
-      prev.includes(option)
-        ? prev.filter((s) => s !== option)
-        : [...prev, option],
-    );
-  }, []);
+  const onToggleSpecies = useCallback((opt: SpeciesOption) =>
+    setSelectedSpecies(prev =>
+      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
+    )
+  , []);
 
-  const onToggleGender = useCallback((option: GenderOption) => {
-    setSelectedGender((prev) =>
-      prev.includes(option)
-        ? prev.filter((g) => g !== option)
-        : [...prev, option],
-    );
-  }, []);
+  const onToggleGender = useCallback((opt: GenderOption) =>
+    setSelectedGender(prev =>
+      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
+    )
+  , []);
 
   const onReset = useCallback(() => {
     setSelectedStatus([]);
@@ -39,7 +36,22 @@ export default function useFilters() {
     setSelectedGender([]);
   }, []);
 
-  const onApply = useCallback(() => {}, []);
+  const query = useQuery({
+    queryKey: ['searchByFilters', selectedStatus, selectedSpecies, selectedGender],
+    queryFn: () =>
+      searchCharacters({
+        status: selectedStatus,
+        species: selectedSpecies,
+        gender: selectedGender,
+      }),
+    enabled: applyFilters,
+    placeholderData: keepPreviousData,
+  });
+
+  const onApply = useCallback(() => {
+setApplyFilters(true);
+query.refetch()
+  }, [query]);
 
   return {
     selectedStatus,
@@ -50,5 +62,10 @@ export default function useFilters() {
     onToggleGender,
     onReset,
     onApply,
+    filteredCharacters: query.data?.results,
+    isFetchingFilteredCharacters: query.isLoading,
+    isErrorFilteredCharacters: query.isError,
   };
-}
+};
+
+export default useFilters;
