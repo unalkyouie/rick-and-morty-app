@@ -14,7 +14,6 @@ const Tab = createNativeStackNavigator();
 export const MainStack = () => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <FavoritesProvider>
         <Tab.Navigator>
           <Tab.Screen
             name={MainStackRoutes.TabNavigationStack}
@@ -27,7 +26,6 @@ export const MainStack = () => {
             options={{ headerShown: false }}
           />
         </Tab.Navigator>
-      </FavoritesProvider>
     </SafeAreaView>
   );
 };
