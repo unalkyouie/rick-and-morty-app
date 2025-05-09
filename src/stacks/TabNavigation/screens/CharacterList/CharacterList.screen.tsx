@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { ActivityIndicator,  Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 import CharacterList from '../../../../components/CharactersList/CharactersList';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
@@ -12,7 +12,14 @@ import { styles } from './CharacterList.styled';
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
 
-  const { isLoading, isError, characters, loadMore, searchQuery, setSearchQuery } = useCharacters();
+  const {
+    isLoading,
+    isError,
+    characters,
+    loadMore,
+    searchQuery,
+    setSearchQuery,
+  } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>
     navigate('CharacterDetailsStack', {
@@ -20,9 +27,7 @@ const CharacterListScreen = () => {
       params: { character },
     });
 
-
   if (isError) return <Text>Error</Text>;
-
 
   return (
     <View style={styles.container}>
@@ -34,9 +39,15 @@ const CharacterListScreen = () => {
         onClear={() => setSearchQuery('')}
       />
 
-      { isLoading ? <ActivityIndicator size="large" /> :<CharacterList
-        onPress={navigateToCharacterDetails} characters={characters} loadMore={loadMore} />
-       }
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <CharacterList
+          onPress={navigateToCharacterDetails}
+          characters={characters}
+          loadMore={loadMore}
+        />
+      )}
     </View>
   );
 };

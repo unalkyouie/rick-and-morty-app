@@ -45,4 +45,11 @@ export const styles = StyleSheet.create({
     marginLeft: 12,
     width: 100,
   },
+  favorite: {
+    fontSize: 24,
+    marginLeft: 8,
+  },
+  favorited: {
+    color: '#FFD700',
+  },
 });

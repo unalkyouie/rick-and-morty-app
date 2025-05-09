@@ -5,8 +5,13 @@ import { getCharacters } from '../services/api';
 import useSearchCharacters from './useSearchCharacters';
 
 const useCharacters = () => {
-
-  const {searchQuery, searchResults, setSearchQuery, isErrorSearchResults, isLoadingSearchResults} = useSearchCharacters();
+  const {
+    searchQuery,
+    searchResults,
+    setSearchQuery,
+    isErrorSearchResults,
+    isLoadingSearchResults,
+  } = useSearchCharacters();
   const {
     data,
     isLoading,
@@ -46,10 +51,10 @@ const useCharacters = () => {
   return {
     characters,
     loadMore,
-    isLoading: isLoading||isLoadingSearchResults,
+    isLoading: isLoading || isLoadingSearchResults,
     isError: isError || isErrorSearchResults,
     searchQuery,
-    setSearchQuery
+    setSearchQuery,
   };
 };
 

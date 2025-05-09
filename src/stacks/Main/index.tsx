@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FavoritesProvider } from '../../context/FavoritesContext';
 import { colorPalette } from '../../styles/colorPalette';
 import { CharacterDetailsStack } from '../CharacterDetails';
 import { TabNavigationStack } from '../TabNavigation';
@@ -13,18 +14,20 @@ const Tab = createNativeStackNavigator();
 export const MainStack = () => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <Tab.Navigator>
-        <Tab.Screen
-          name={MainStackRoutes.TabNavigationStack}
-          component={TabNavigationStack}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name={MainStackRoutes.CharacterDetailsStack}
-          component={CharacterDetailsStack}
-          options={{ headerShown: false }}
-        />
-      </Tab.Navigator>
+      <FavoritesProvider>
+        <Tab.Navigator>
+          <Tab.Screen
+            name={MainStackRoutes.TabNavigationStack}
+            component={TabNavigationStack}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name={MainStackRoutes.CharacterDetailsStack}
+            component={CharacterDetailsStack}
+            options={{ headerShown: false }}
+          />
+        </Tab.Navigator>
+      </FavoritesProvider>
     </SafeAreaView>
   );
 };

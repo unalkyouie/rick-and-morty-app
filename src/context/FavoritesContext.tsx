@@ -8,7 +8,9 @@ type FavoritesContextType = {
   isFavorite: (character: Character) => boolean;
 };
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextType | undefined>(
+  undefined,
+);
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Character[]>([]);
@@ -27,7 +29,9 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorite }}>
+    <FavoritesContext.Provider
+      value={{ favorites, toggleFavorite, isFavorite }}
+    >
       {children}
     </FavoritesContext.Provider>
   );
