@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { getCharacters } from '../services/api';
 import useSearchCharacters from './useSearchCharacters';
+import useFilters from './useFilters';
 
 const useCharacters = () => {
   const {
@@ -14,9 +15,24 @@ const useCharacters = () => {
   } = useSearchCharacters();
 
   const {
-    data,
-    isLoading,
-    isError,
+    applied,
+    filteredCharacters,
+    isLoadingFiltered,
+    isErrorFiltered,
+    selectedStatus,
+    selectedSpecies,
+    selectedGender,
+    onToggleStatus,
+    onToggleSpecies,
+    onToggleGender,
+    onApply,
+    onReset,
+  } = useFilters();
+
+  const {
+    data: infiniteData,
+    isLoading: isLoadingInfinite,
+    isError: isErrorInfinite,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -44,18 +60,43 @@ const useCharacters = () => {
   };
 
   const characters = useMemo(() => {
-    if (searchQuery) {
-      return searchResults?.results ?? [];
-    }
-    return data?.pages.flatMap((page) => page.results) ?? [];
-  }, [data, searchResults, searchQuery]);
+    if (searchQuery) return searchResults?.results ?? [];
+    if (applied) return filteredCharacters ?? [];
+    return infiniteData?.pages.flatMap(p => p.results) ?? [];
+  }, [
+    searchQuery,
+    searchResults,
+    applied,
+    filteredCharacters,
+    infiniteData,
+  ]);
+
+
+  const isLoading =
+  (searchQuery ? isLoadingSearchResults : false) ||
+  (applied ? isLoadingFiltered : isLoadingInfinite);
+
+  const isError =
+    (searchQuery ? isErrorSearchResults : false) ||
+    (applied ? isErrorFiltered : isErrorInfinite);
+
   return {
     characters,
     loadMore,
-    isLoading: isLoading || isLoadingSearchResults,
-    isError: isError || isErrorSearchResults,
+    isLoading,
+    isError,
     searchQuery,
     setSearchQuery,
+    filtersProps: {
+      selectedStatus,
+      selectedSpecies,
+      selectedGender,
+      onToggleStatus,
+      onToggleSpecies,
+      onToggleGender,
+      onReset,
+      onApply,
+    }
   };
 };
 

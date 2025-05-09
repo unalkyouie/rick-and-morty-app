@@ -7,14 +7,12 @@ import CharacterList from '../../../../components/CharactersList/CharactersList'
 import Filters from '../../../../components/Filters/Filters';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
-import useFilters from '../../../../hooks/useFilters';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
 
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
-  const filtersProps = useFilters();
 
   const {
     isLoading,
@@ -23,6 +21,7 @@ const CharacterListScreen = () => {
     loadMore,
     searchQuery,
     setSearchQuery,
+    filtersProps
   } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>

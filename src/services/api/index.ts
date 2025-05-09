@@ -6,7 +6,6 @@ export const API = {
   get: async <T>(url: string): Promise<T> => {
     try {
       const response = await fetch(`${BASE_URL}/${url}`);
-      console.log(await response.json());
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }

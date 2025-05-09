@@ -10,33 +10,32 @@ const  useFilters=()=> {
   const [selectedStatus, setSelectedStatus] = useState<StatusOption[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState<SpeciesOption[]>([]);
   const [selectedGender, setSelectedGender] = useState<GenderOption[]>([]);
-  const [applyFilters, setApplyFilters] = useState<boolean>(false);
+  const [applied, setApplied] = useState(false);
+
+  const [appliedFilters, setAppliedFilters] = useState<{
+    status: StatusOption[];
+    species: SpeciesOption[];
+    gender: GenderOption[];
+  }>({ status: [], species: [], gender: [] });
 
   const onToggleStatus = useCallback((opt: StatusOption) =>
     setSelectedStatus(prev =>
       prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
     )
   , []);
-
   const onToggleSpecies = useCallback((opt: SpeciesOption) =>
     setSelectedSpecies(prev =>
       prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
     )
   , []);
-
   const onToggleGender = useCallback((opt: GenderOption) =>
     setSelectedGender(prev =>
       prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
     )
   , []);
 
-  const onReset = useCallback(() => {
-    setSelectedStatus([]);
-    setSelectedSpecies([]);
-    setSelectedGender([]);
-  }, []);
 
-  const query = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['searchByFilters', selectedStatus, selectedSpecies, selectedGender],
     queryFn: () =>
       searchCharacters({
@@ -44,14 +43,22 @@ const  useFilters=()=> {
         species: selectedSpecies,
         gender: selectedGender,
       }),
-    enabled: applyFilters,
+    enabled: false,
     placeholderData: keepPreviousData,
   });
 
   const onApply = useCallback(() => {
-setApplyFilters(true);
-query.refetch()
-  }, [query]);
+    setApplied(true);
+    refetch();
+  }, [refetch]);
+
+  const onReset = useCallback(() => {
+    setSelectedStatus([]);
+    setSelectedSpecies([]);
+    setSelectedGender([]);
+    setApplied(false);
+  }, []);
+
 
   return {
     selectedStatus,
@@ -60,11 +67,12 @@ query.refetch()
     onToggleStatus,
     onToggleSpecies,
     onToggleGender,
-    onReset,
     onApply,
-    filteredCharacters: query.data?.results,
-    isFetchingFilteredCharacters: query.isLoading,
-    isErrorFilteredCharacters: query.isError,
+    onReset,
+    applied,
+    filteredCharacters: data?.results,
+    isLoadingFiltered: isLoading,
+    isErrorFiltered: isError,
   };
 };
 
