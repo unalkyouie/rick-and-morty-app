@@ -1,50 +1,55 @@
 import React from 'react';
+import { Text, View } from 'react-native';
+
 import {
-  View,
-  Text,
-} from 'react-native';
+  GenderOption,
+  SpeciesOption,
+  StatusOption,
+} from '../../hooks/useFilters';
+import Button from '../Button/Button';
 import Checkbox from '../Checkbox/Checkbox';
 import { styles } from './Filters.styled';
-import Button from '../Button/Button';
 
+interface Props {
+  selectedStatus: StatusOption[];
+  selectedSpecies: SpeciesOption[];
+  selectedGender: GenderOption[];
+  onToggleStatus: (option: StatusOption) => void;
+  onToggleSpecies: (option: SpeciesOption) => void;
+  onToggleGender: (option: GenderOption) => void;
+  onReset: () => void;
+  onApply: () => void;
+}
 
-
-export type StatusOption = 'Alive' | 'Dead' | 'Unknown';
-export type SpeciesOption = 'Human' | 'Alien' | 'Humanoid' | 'Mythological';
-export type GenderOption = 'Male' | 'Female' | 'Genderless' | 'unknown';
-
-
-interface Props  {
-   selectedStatus: StatusOption[];
-   selectedSpecies: SpeciesOption[];
-   selectedGender: GenderOption[];
-   onToggleStatus: (option: StatusOption) => void;
-   onToggleSpecies: (option: SpeciesOption) => void;
-   onToggleGender: (option: GenderOption) => void;
-   onReset: () => void;
-   onApply: () => void;
-};
-
-const DEFAULT_STATUS:Array<StatusOption> = ['Alive', 'Dead', 'Unknown'];
-const DEFAULT_SPECIES: Array<SpeciesOption> = ['Human', 'Alien', 'Humanoid', 'Mythological'];
-const DEFAULT_GENDER: Array<GenderOption> = ['Male', 'Female', 'Genderless', 'unknown'];
+const DEFAULT_STATUS: Array<StatusOption> = ['Alive', 'Dead', 'Unknown'];
+const DEFAULT_SPECIES: Array<SpeciesOption> = [
+  'Human',
+  'Alien',
+  'Humanoid',
+  'Mythological',
+];
+const DEFAULT_GENDER: Array<GenderOption> = [
+  'Male',
+  'Female',
+  'Genderless',
+  'unknown',
+];
 
 export const Filters: React.FC<Props> = ({
-    selectedStatus,
-    selectedSpecies,
-    selectedGender,
-    onToggleStatus,
-    onToggleSpecies,
-    onToggleGender,
-    onReset,
-    onApply,
+  selectedStatus,
+  selectedSpecies,
+  selectedGender,
+  onToggleStatus,
+  onToggleSpecies,
+  onToggleGender,
+  onReset,
+  onApply,
 }) => {
   return (
     <View style={styles.card}>
-
       <Text style={styles.sectionTitle}>Status</Text>
       <View style={styles.optionsRow}>
-        {DEFAULT_STATUS.map(opt => (
+        {DEFAULT_STATUS.map((opt) => (
           <Checkbox
             key={opt}
             label={opt}
@@ -55,10 +60,9 @@ export const Filters: React.FC<Props> = ({
         ))}
       </View>
 
-
       <Text style={[styles.sectionTitle, { marginTop: 16 }]}>Species</Text>
       <View style={styles.optionsRow}>
-        {DEFAULT_SPECIES.map(opt => (
+        {DEFAULT_SPECIES.map((opt) => (
           <Checkbox
             key={opt}
             label={opt}
@@ -69,10 +73,9 @@ export const Filters: React.FC<Props> = ({
         ))}
       </View>
 
-
-  <Text style={[styles.sectionTitle, { marginTop: 16 }]}>Gender</Text>
+      <Text style={[styles.sectionTitle, { marginTop: 16 }]}>Gender</Text>
       <View style={styles.optionsRow}>
-        {DEFAULT_GENDER.map(opt => (
+        {DEFAULT_GENDER.map((opt) => (
           <Checkbox
             key={opt}
             label={opt}
@@ -84,8 +87,19 @@ export const Filters: React.FC<Props> = ({
         ))}
       </View>
       <View style={styles.buttonsRow}>
-      <Button variant='primary' label='RESET' onPress={onReset} style={undefined}/>ą <Button variant='primary' label='APPLY' onPress={onApply} style={undefined}  />
-       
+        <Button
+          variant="primary"
+          label="RESET"
+          onPress={onReset}
+          style={undefined}
+        />
+        ą{' '}
+        <Button
+          variant="primary"
+          label="APPLY"
+          onPress={onApply}
+          style={undefined}
+        />
       </View>
     </View>
   );

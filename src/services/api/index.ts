@@ -24,3 +24,18 @@ export const getCharacters = async (page: number = 1) => {
 export const searchCharactersByName = async (name: string) => {
   return API.get<APIResponse<Character>>(`character/?name=${name}`);
 };
+
+export const searchCharacters = async (filters: {
+  name?: string;
+  status?: string;
+  species?: string;
+}) => {
+  const params = new URLSearchParams();
+  if (filters.name) params.append('name', filters.name);
+  if (filters.status) params.append('status', filters.status);
+  if (filters.species) params.append('species', filters.species);
+
+  const queryString = params.toString();
+  const url = queryString ? `character/?${queryString}` : `character/`;
+  return API.get<APIResponse<Character>>(url);
+};
