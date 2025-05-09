@@ -1,50 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import {View, Text, Button, FlatList, ActivityIndicator} from 'react-native';
-import React, { useMemo } from 'react';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
+import React from 'react';
 
 import {MainStackNavigationProp} from '../../../Main/Main.routes';
-import { getCharacters } from '../../../../services/api';
-
-import {styles} from './CharacterList.styled';
-import CharacterCard from '../../../../components/CharacterCard';
+import CharacterCard from '../../../../components/CharacterCard/CharacterCard';
 import { Character } from '../../../../services/api/types';
+import useCharacters from '../../../../hooks/useCharacters';
+import {styles} from './CharacterList.styled';
 
 const CharacterListScreen = () => {
   const {navigate} = useNavigation<MainStackNavigationProp>();
 
-  const {
-    data,
-    isLoading,
-    isError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['characters'],
-    queryFn:  ({ pageParam = 1 }) => getCharacters(pageParam),
-    getNextPageParam: (lastPage) => {
-      const nextPageUrl = lastPage.info.next;
-      if (!nextPageUrl) return undefined;
-
-      const nextPage = parseInt(new URL(nextPageUrl).searchParams.get('page') || '1');
-      return isNaN(nextPage) ? undefined : nextPage;
-    },
-    initialPageParam:1,
-    staleTime: Infinity,
-    placeholderData: keepPreviousData,
-
-  });
-
-  const loadMore = () => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  };
-
-  const characters = useMemo(() => {
-    return data?.pages.flatMap((page) => page.results) ?? [];
-  }, [data]);
+  const {isLoading, isError, characters, loadMore} = useCharacters();
 
 const navigateToCharacterDetails = (character: Character)=>
   navigate('CharacterDetailsStack', {

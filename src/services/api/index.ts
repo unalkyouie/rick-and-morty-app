@@ -21,3 +21,8 @@ export const API = {
   export const getCharacters = async (page: number = 1) => {
     return API.get<APIResponse<Character>>(`character/?page=${page}`);
   }; 
+
+  export const searchCharactersByName = async (name: string) => {
+    return API.get<APIResponse<Character>>(`character/?name=${encodeURIComponent(name)}`);
+  };
+  
