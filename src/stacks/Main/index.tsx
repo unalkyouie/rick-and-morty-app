@@ -3,13 +3,13 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { FavoritesProvider } from '../../context/FavoritesContext';
 import { colorPalette } from '../../styles/colorPalette';
 import { CharacterDetailsStack } from '../CharacterDetails';
 import { TabNavigationStack } from '../TabNavigation';
 import { MainStackRoutes } from './Main.routes';
 
 const Tab = createNativeStackNavigator();
+
 
 export const MainStack = () => {
   return (
