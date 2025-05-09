@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,10 +9,25 @@ import useCharacters from '../../../../hooks/useCharacters';
 import { Character } from '../../../../services/api/types';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
+import Filters from '../../../../components/Filters/Filters';
 
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [selectedSpecies, setSelectedSpecies] = useState<string[]>([]);
+  const [selectedGender, setSelectedGender] = useState<string[]>([]);
+  const onToggleStatus = (option: string) => {
+  };
+  const onToggleSpecies = (option: string) => {
+  };
+  const onToggleGender = (option: string) => {
+  };
+  const onReset = () => {
+  };
+  const onApply = () => {
+  };
 
+  
   const {
     isLoading,
     isError,
@@ -38,7 +53,16 @@ const CharacterListScreen = () => {
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
         />
-
+        <Filters
+          selectedStatus={selectedStatus}
+          selectedSpecies={selectedSpecies}
+          selectedGender={selectedGender}
+          onToggleStatus={onToggleStatus}
+          onToggleSpecies={onToggleSpecies}
+          onToggleGender={onToggleGender}
+          onReset={onReset}
+          onApply={onApply}
+        />
         {isLoading ? (
           <ActivityIndicator size="large" />
         ) : (
