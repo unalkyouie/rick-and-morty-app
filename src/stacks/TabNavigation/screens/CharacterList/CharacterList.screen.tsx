@@ -28,8 +28,7 @@ const CharacterListScreen = () => {
       params: { character },
     });
 
-  if (isLoading || isLoadingSearchResults)
-    return <ActivityIndicator size="large" />;
+
   if (isError || isErrorSearchResults) return <Text>Error</Text>;
 
   const listData = searchQuery ? (searchResults?.results ?? []) : characters;
@@ -45,7 +44,7 @@ const CharacterListScreen = () => {
         onClear={() => setSearchQuery('')}
       />
 
-      <FlatList
+      { (isLoading || isLoadingSearchResults) ? <ActivityIndicator size="large" /> :<FlatList
         data={listData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
@@ -56,7 +55,7 @@ const CharacterListScreen = () => {
         )}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
-      />
+      />}
     </View>
   );
 };
