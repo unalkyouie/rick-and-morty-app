@@ -1,13 +1,22 @@
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import {MainStack} from './src/stacks/Main';
+import { FavoritesProvider } from './src/context/FavoritesContext';
+import QueryProvider from './src/services/QueryClientProvider';
+import { MainStack } from './src/stacks/Main';
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <MainStack />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <QueryProvider>
+        <FavoritesProvider>
+          <NavigationContainer>
+            <MainStack />
+          </NavigationContainer>
+        </FavoritesProvider>
+      </QueryProvider>
+    </SafeAreaProvider>
   );
 }
 

@@ -1,7 +1,9 @@
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+import { Character } from '../../services/api/types';
 
 export type CharacterDetailsStackParamList = {
-  CharacterDetailsScreen: undefined;
+  CharacterDetailsScreen: { character: Character };
 };
 
 export type CharacterDetailsStackNavigationProp =

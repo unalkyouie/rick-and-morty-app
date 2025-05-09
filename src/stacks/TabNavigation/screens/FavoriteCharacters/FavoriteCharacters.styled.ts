@@ -1,9 +1,26 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import { colorPalette } from '../../../../styles/colorPalette';
 
 export const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: colorPalette.lightGreen,
+  },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
+    backgroundColor: colorPalette.lightGreen,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  emptyText: {
+    fontSize: 18,
+    color: colorPalette.darkGreen,
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
