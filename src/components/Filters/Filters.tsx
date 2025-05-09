@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, ViewStyle } from 'react-native';
 
-
+import {
+  GenderOption,
+  SpeciesOption,
+  StatusOption,
+} from '../../services/api/types';
 import { colorPalette } from '../../styles/colorPalette';
 import Button from '../Button/Button';
 import { styles } from './Filters.styled';
 import FiltersCard from './FiltersCard';
-import { GenderOption, SpeciesOption, StatusOption } from '../../services/api/types';
 
 interface Props {
   selectedStatus: StatusOption[];
@@ -32,6 +35,11 @@ const Filters: React.FC<Props> = ({
   style,
 }) => {
   const [visible, setVisible] = useState(false);
+
+  const handleOnApply = () => {
+    onApply();
+    setVisible((v) => !v);
+  };
   return (
     <View style={[styles.wrapper, style]}>
       <Button
@@ -60,7 +68,7 @@ const Filters: React.FC<Props> = ({
           onToggleSpecies={onToggleSpecies}
           onToggleGender={onToggleGender}
           onReset={onReset}
-          onApply={onApply}
+          onApply={handleOnApply}
         />
       )}
     </View>

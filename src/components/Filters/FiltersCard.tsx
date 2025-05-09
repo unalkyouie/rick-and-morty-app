@@ -1,8 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { GenderOption, SpeciesOption, StatusOption } from '../../services/api/types';
-
+import {
+  GenderOption,
+  SpeciesOption,
+  StatusOption,
+} from '../../services/api/types';
 import Button from '../Button/Button';
 import Checkbox from '../Checkbox/Checkbox';
 import { styles } from './FiltersCard.styled';

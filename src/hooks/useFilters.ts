@@ -2,8 +2,11 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
 
 import { searchCharacters } from '../services/api';
-import { StatusOption, SpeciesOption, GenderOption } from '../services/api/types';
-
+import {
+  GenderOption,
+  SpeciesOption,
+  StatusOption,
+} from '../services/api/types';
 
 const useFilters = () => {
   const [selectedStatus, setSelectedStatus] = useState<StatusOption[]>([]);

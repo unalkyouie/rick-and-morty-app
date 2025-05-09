@@ -1,7 +1,8 @@
-import { useState, useCallback, useMemo } from 'react';
-import useFilters from './useFilters';
-import useFavorites from './useFavorites';
+import { useCallback, useMemo, useState } from 'react';
+
 import { Character } from '../services/api/types';
+import useFavorites from './useFavorites';
+import useFilters from './useFilters';
 
 const useFavoriteFilter = () => {
   const { favorites } = useFavorites();
@@ -30,10 +31,13 @@ const useFavoriteFilter = () => {
 
   const filteredFavorites = useMemo<Character[]>(() => {
     if (!applied) return favorites;
-    return favorites.filter(c => {
-      if (selectedStatus.length && !selectedStatus.includes(c.status)) return false;
-      if (selectedSpecies.length && !selectedSpecies.includes(c.species)) return false;
-      if (selectedGender.length && !selectedGender.includes(c.gender)) return false;
+    return favorites.filter((c) => {
+      if (selectedStatus.length && !selectedStatus.includes(c.status))
+        return false;
+      if (selectedSpecies.length && !selectedSpecies.includes(c.species))
+        return false;
+      if (selectedGender.length && !selectedGender.includes(c.gender))
+        return false;
       return true;
     });
   }, [applied, favorites, selectedStatus, selectedSpecies, selectedGender]);
