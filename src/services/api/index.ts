@@ -23,6 +23,6 @@ export const API = {
   }; 
 
   export const searchCharactersByName = async (name: string) => {
-    return API.get<APIResponse<Character>>(`character/?name=${encodeURIComponent(name)}`);
+    return API.get<APIResponse<Character>>(`character/?name=${name}`);
   };
   

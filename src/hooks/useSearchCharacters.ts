@@ -15,9 +15,9 @@ const useSearchCharacters = ()=>{
 return {
     searchQuery,
     setSearchQuery, 
-    data, 
-    isLoading,
-    isError
+    searchResults: data, 
+    isLoadingSearchResults: isLoading,
+    isErrorSearchResults: isError
     }
 }
 
