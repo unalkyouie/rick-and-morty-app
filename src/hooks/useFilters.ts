@@ -13,12 +13,6 @@ const useFilters = () => {
   const [selectedGender, setSelectedGender] = useState<GenderOption[]>([]);
   const [applied, setApplied] = useState(false);
 
-  const [appliedFilters, setAppliedFilters] = useState<{
-    status: StatusOption[];
-    species: SpeciesOption[];
-    gender: GenderOption[];
-  }>({ status: [], species: [], gender: [] });
-
   const onToggleStatus = useCallback(
     (opt: StatusOption) =>
       setSelectedStatus((prev) =>
