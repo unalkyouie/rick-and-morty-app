@@ -10,7 +10,6 @@ import { MainStackRoutes } from './Main.routes';
 
 const Tab = createNativeStackNavigator();
 
-
 export const MainStack = () => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>

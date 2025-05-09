@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   tabBar: {
     paddingBottom: 10,
     backgroundColor: colorPalette.darkGreen,
-    borderWidth:0,
+    borderWidth: 0,
     elevation: 0,
     height: 80,
     position: 'absolute',
