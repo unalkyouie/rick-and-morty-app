@@ -33,7 +33,6 @@ const CharacterListScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text>Character List</Text>
         <SearchBar
           value={searchQuery}
           onChangeText={setSearchQuery}

@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colorPalette } from '../../styles/colorPalette';
@@ -16,21 +23,26 @@ type Props = {
 const Button: React.FC<Props> = ({ label, onPress, icon, variant, style }) => {
   const accentColor =
     variant === 'primary' ? colorPalette.white : colorPalette.darkGreen;
+  const userStyle = StyleSheet.flatten(style);
+  const buttonStyle: ViewStyle = {
+    ...styles.button,
+    ...userStyle,
+    borderColor: accentColor,
+  };
   return (
-    <TouchableOpacity
-      style={[styles.button, style, { borderColor: accentColor }]}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
+    <TouchableOpacity style={buttonStyle} onPress={onPress} activeOpacity={0.8}>
       <View style={styles.content}>
         {icon && (
           <Ionicons
+            key={icon.name}
             name={icon.name}
             size={12}
             style={[styles.icon, { color: icon.color ?? accentColor }]}
           />
         )}
-        <Text style={[styles.text, { color: accentColor }]}>{label}</Text>
+        <Text key={label} style={[styles.text, { color: accentColor }]}>
+          {label}
+        </Text>
       </View>
     </TouchableOpacity>
   );

@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: colorPalette.primaryGreen,
     marginBottom: 4,
-    letterSpacing: 2
+    letterSpacing: 2,
   },
   detailText: {
     fontSize: 16,
@@ -84,6 +84,6 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: 12,
     borderRadius: 20,
-    width: '100%'
+    width: '100%',
   },
 });

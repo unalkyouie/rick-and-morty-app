@@ -26,6 +26,19 @@ const CharacterDetailsScreen = () => {
   const handleToggleFavorite = () => {
     toggleFavorite(character);
   };
+
+
+const buttonLabel = favorite ? 'REMOVE FROM LIKED' : 'ADD TO LIKED';
+const buttonIcon = {
+  name: favorite ? 'star' : 'star-outline',
+  color: favorite ? colorPalette.accent : undefined,
+};
+const backgroundColor = favorite
+? colorPalette.darkGreen
+: colorPalette.primaryGreen;
+
+
+console.log(buttonLabel);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -63,21 +76,17 @@ const CharacterDetailsScreen = () => {
 
           <Button
             variant="primary"
-            label={favorite ? 'REMOVE FROM LIKED' : 'ADD TO LIKED'}
-            icon={{
-              name: favorite ? 'star' : 'star-outline',
-              color: favorite ? colorPalette.accent : undefined,
-            }}
+            label={buttonLabel}
+            icon={buttonIcon}
             onPress={handleToggleFavorite}
             style={[
               styles.favoriteButton,
               {
-                backgroundColor: favorite
-                  ? colorPalette.darkGreen
-                  : colorPalette.primaryGreen,
+                backgroundColor
               },
             ]}
           />
+
         </View>
       </View>
     </SafeAreaView>
