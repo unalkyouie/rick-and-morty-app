@@ -36,7 +36,6 @@ const CharacterDetailsScreen = () => {
     ? colorPalette.darkGreen
     : colorPalette.primaryGreen;
 
-  console.log(buttonLabel);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>

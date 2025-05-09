@@ -26,14 +26,17 @@ export const searchCharactersByName = async (name: string) => {
 };
 
 export const searchCharacters = async (filters: {
-  status?: string[];     
-  species?: string[];  
-  gender?: string[];    
+  status?: string[];
+  species?: string[];
+  gender?: string[];
 }) => {
   const params = new URLSearchParams();
-  if (filters.status) filters.status.forEach(item => params.append('status', item));
-  if (filters.species)filters.species.forEach(item => params.append('species', item));
-  if (filters.gender) filters.gender.forEach(item => params.append('gender', item));
+  if (filters.status)
+    filters.status.forEach((item) => params.append('status', item));
+  if (filters.species)
+    filters.species.forEach((item) => params.append('species', item));
+  if (filters.gender)
+    filters.gender.forEach((item) => params.append('gender', item));
 
   const query = params.toString();
   const url = query ? `character/?${query}` : 'character';

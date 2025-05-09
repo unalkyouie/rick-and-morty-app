@@ -6,10 +6,10 @@ import {
   SpeciesOption,
   StatusOption,
 } from '../../hooks/useFilters';
+import { colorPalette } from '../../styles/colorPalette';
 import Button from '../Button/Button';
 import Checkbox from '../Checkbox/Checkbox';
 import { styles } from './Filters.styled';
-import { colorPalette } from '../../styles/colorPalette';
 
 interface Props {
   selectedStatus: StatusOption[];
@@ -94,7 +94,7 @@ export const Filters: React.FC<Props> = ({
           onPress={onReset}
           style={styles.resetButton}
         />
-       
+
         <Button
           variant="primary"
           label="APPLY"

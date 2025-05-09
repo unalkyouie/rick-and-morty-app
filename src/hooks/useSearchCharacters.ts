@@ -10,8 +10,6 @@ export type Filters = {
   species: string;
 };
 
-
-
 const useSearchCharacters = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const debouncedQuery = useDebounce(searchQuery);

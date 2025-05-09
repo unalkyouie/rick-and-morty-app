@@ -1,12 +1,13 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
+
 import { searchCharacters } from '../services/api';
 
 export type StatusOption = 'Alive' | 'Dead' | 'Unknown';
 export type SpeciesOption = 'Human' | 'Alien' | 'Humanoid' | 'Mythological';
 export type GenderOption = 'Male' | 'Female' | 'Genderless' | 'unknown';
 
-const  useFilters=()=> {
+const useFilters = () => {
   const [selectedStatus, setSelectedStatus] = useState<StatusOption[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState<SpeciesOption[]>([]);
   const [selectedGender, setSelectedGender] = useState<GenderOption[]>([]);
@@ -18,25 +19,35 @@ const  useFilters=()=> {
     gender: GenderOption[];
   }>({ status: [], species: [], gender: [] });
 
-  const onToggleStatus = useCallback((opt: StatusOption) =>
-    setSelectedStatus(prev =>
-      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
-    )
-  , []);
-  const onToggleSpecies = useCallback((opt: SpeciesOption) =>
-    setSelectedSpecies(prev =>
-      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
-    )
-  , []);
-  const onToggleGender = useCallback((opt: GenderOption) =>
-    setSelectedGender(prev =>
-      prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt]
-    )
-  , []);
-
+  const onToggleStatus = useCallback(
+    (opt: StatusOption) =>
+      setSelectedStatus((prev) =>
+        prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt],
+      ),
+    [],
+  );
+  const onToggleSpecies = useCallback(
+    (opt: SpeciesOption) =>
+      setSelectedSpecies((prev) =>
+        prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt],
+      ),
+    [],
+  );
+  const onToggleGender = useCallback(
+    (opt: GenderOption) =>
+      setSelectedGender((prev) =>
+        prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt],
+      ),
+    [],
+  );
 
   const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ['searchByFilters', selectedStatus, selectedSpecies, selectedGender],
+    queryKey: [
+      'searchByFilters',
+      selectedStatus,
+      selectedSpecies,
+      selectedGender,
+    ],
     queryFn: () =>
       searchCharacters({
         status: selectedStatus,
@@ -58,7 +69,6 @@ const  useFilters=()=> {
     setSelectedGender([]);
     setApplied(false);
   }, []);
-
 
   return {
     selectedStatus,

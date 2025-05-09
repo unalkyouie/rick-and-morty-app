@@ -13,4 +13,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     width: '100%',
   },
+  filterToggle: {
+    padding: 12,
+    backgroundColor: colorPalette.primaryGreen,
+    borderRadius: 20,
+    alignSelf: 'flex-start',
+    marginBottom: 12,
+  },
 });

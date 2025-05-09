@@ -1,19 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Button from '../../../../components/Button/Button';
 import CharacterList from '../../../../components/CharactersList/CharactersList';
 import Filters from '../../../../components/Filters/Filters';
 import SearchBar from '../../../../components/SearchBar/SearchBar';
 import useCharacters from '../../../../hooks/useCharacters';
 import { Character } from '../../../../services/api/types';
+import { colorPalette } from '../../../../styles/colorPalette';
 import { MainStackNavigationProp } from '../../../Main/Main.routes';
 import { styles } from './CharacterList.styled';
 
 const CharacterListScreen = () => {
   const { navigate } = useNavigation<MainStackNavigationProp>();
 
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   const {
     isLoading,
     isError,
@@ -21,7 +24,7 @@ const CharacterListScreen = () => {
     loadMore,
     searchQuery,
     setSearchQuery,
-    filtersProps
+    filtersProps,
   } = useCharacters();
 
   const navigateToCharacterDetails = (character: Character) =>
@@ -40,7 +43,24 @@ const CharacterListScreen = () => {
           onChangeText={setSearchQuery}
           onClear={() => setSearchQuery('')}
         />
-        <Filters {...filtersProps} />
+        <Button
+          variant="primary"
+          label="FILTERS"
+          onPress={() => setShowFilters((prev) => !prev)}
+          style={[
+            styles.filterToggle,
+            {
+              backgroundColor: showFilters
+                ? colorPalette.darkGreen
+                : colorPalette.primaryGreen,
+            },
+          ]}
+          icon={{
+            name: showFilters ? 'chevron-up' : 'chevron-down',
+            color: colorPalette.white,
+          }}
+        />
+        {showFilters && <Filters {...filtersProps} />}
         {isLoading ? (
           <ActivityIndicator size="large" />
         ) : (
