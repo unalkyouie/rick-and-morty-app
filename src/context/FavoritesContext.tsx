@@ -2,11 +2,13 @@ import React, {
   createContext,
   ReactNode,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
 
 import { Character } from '../services/api/types';
+import { getStoredFavorites, saveFavorites } from '../services/Storage';
 
 type FavoritesContextType = {
   favorites: Character[];
@@ -21,11 +23,25 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Character[]>([]);
 
-  const toggleFavorite = useCallback((character: Character) => {
-    setFavorites((favs) =>
-      favs.some((f) => f.id === character.id)
-        ? favs.filter((f) => f.id !== character.id)
-        : [...favs, character],
+  useEffect(() => {
+    getStoredFavorites()
+      .then(setFavorites)
+      .catch(err => {
+        console.error('Failed to load favorites', err);
+        setFavorites([]); 
+      });
+  }, []);
+
+  useEffect(() => {
+    saveFavorites(favorites);
+  }, [favorites]);
+
+
+ const toggleFavorite = useCallback((character: Character) => {
+    setFavorites(prev =>
+      prev.some(f => f.id === character.id)
+        ? prev.filter(f => f.id !== character.id)
+        : [...prev, character]
     );
   }, []);
 
