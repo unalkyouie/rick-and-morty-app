@@ -7,7 +7,7 @@ import CharacterCard from '../CharacterCard/CharacterCard';
 type Props = {
   characters: Character[];
   onPress: (character: Character) => void;
-  loadMore: () => void;
+  loadMore?: () => void;
 };
 
 const CharacterList: React.FC<Props> = ({ characters, onPress, loadMore }) => {

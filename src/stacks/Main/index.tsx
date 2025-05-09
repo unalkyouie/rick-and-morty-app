@@ -14,18 +14,18 @@ const Tab = createNativeStackNavigator();
 export const MainStack = () => {
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-        <Tab.Navigator>
-          <Tab.Screen
-            name={MainStackRoutes.TabNavigationStack}
-            component={TabNavigationStack}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name={MainStackRoutes.CharacterDetailsStack}
-            component={CharacterDetailsStack}
-            options={{ headerShown: false }}
-          />
-        </Tab.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen
+          name={MainStackRoutes.TabNavigationStack}
+          component={TabNavigationStack}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name={MainStackRoutes.CharacterDetailsStack}
+          component={CharacterDetailsStack}
+          options={{ headerShown: false }}
+        />
+      </Tab.Navigator>
     </SafeAreaView>
   );
 };
